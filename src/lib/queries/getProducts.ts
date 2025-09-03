@@ -5,6 +5,7 @@ export const GET_PRODUCTS = gql`
     getProducts {
       id
       name
+      slug
       description
       price
       imageUrl

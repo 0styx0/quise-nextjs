@@ -3,6 +3,9 @@
 
 Usecase: Updating Typescript types after a GraphQL schema change.
 
+First, update `queries/` to reflect changes to queries.
+
+Next, run the following command:
 ```bash
 yarn run codegen
 ```
