@@ -9,7 +9,7 @@ interface CartState {
   products: Product[];
 };
 
-interface CartFns {
+interface CartContext {
     addItem: (product: Product) => OpResultType;
     removeItem: (id: string) => OpResultType;
     state: CartState;
@@ -24,7 +24,7 @@ type CartAction =
   | { type: CartActionType.REMOVE_ITEM; productId: string }
   
 
-const CartContext = createContext<CartFns | undefined>(undefined);
+const CartContext = createContext<CartContext | undefined>(undefined);
 
 const cartReducer = (draft: CartState, action: CartAction) => {
 
@@ -63,7 +63,7 @@ export const CartProvider = ({children}: { children: ReactNode }) => {
 }
 
 
-export const useCart = (): CartFns => {
+export const useCart = (): CartContext => {
   const context = useContext(CartContext);
   if (!context) {
     throw new Error("useCart must be used within a CartProvider");

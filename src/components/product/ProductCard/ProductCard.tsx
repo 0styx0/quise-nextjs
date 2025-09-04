@@ -19,7 +19,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     return (
         <div className="rounded overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
             {/* Top: name + description + image */}
-            <div className="flex items-start justify-between px-6 py-4 gap-4 flex-1">
+            <div className="flex items-start justify-between px-4 py-4 gap-4 flex-1">
 
                 <div className="flex-1">
                     <div className="font-bold text-xl mb-2">{product.name}</div>
@@ -46,7 +46,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 </span>
                 <button
                     onClick={addToCart}
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-24 text-center">
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold ml-2 py-2 rounded w-24 text-center">
                     Buy
                 </button>
             </div>
