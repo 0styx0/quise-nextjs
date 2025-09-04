@@ -35,7 +35,7 @@ const cartReducer = (draft: CartState, action: CartAction) => {
             draft.products.push(action.product)
             break;
         case CartActionType.REMOVE_ITEM:
-            draft.products = draft.products.filter((product) => product.id === action.productId);
+            draft.products = draft.products.filter((product) => product.id !== action.productId);
             break;
             
     }

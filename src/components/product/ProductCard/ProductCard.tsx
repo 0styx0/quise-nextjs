@@ -1,6 +1,6 @@
 "use client"
 
-import { useCart } from "@/context/cartContext";
+import { CartActions } from "@/components/product/ProductCard/CartActions";
 import { Product } from "@/generated/graphql/graphql";
 import { priceFormatter } from "@/lib/utils/formatters";
 import Image from 'next/image'
@@ -9,12 +9,6 @@ interface ProductCardProps {
     product: Product
 }
 export const ProductCard = ({ product }: ProductCardProps) => {
-
-    const { addItem } = useCart()
-
-    function addToCart() {
-        addItem(product)
-    }
 
     return (
         <div className="rounded overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300 flex flex-col h-full">
@@ -44,11 +38,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 <span className="font-semibold text-lg text-gray-900">
                     {priceFormatter.format(product.price)}
                 </span>
-                <button
-                    onClick={addToCart}
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold ml-2 py-2 rounded w-24 text-center">
-                    Buy
-                </button>
+                <CartActions product={product} />
             </div>
         </div>
     )
