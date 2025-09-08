@@ -11,3 +11,7 @@ yarn run codegen
 ```
 
 Result: Stores generated types in `src/generated/graphql/`
+
+### Using Stripe
+
+See the [stripe docs](https://docs.stripe.com/payments/accept-a-payment?platform=web&ui=stripe-hosted#test-cards) for test data to use when checking out.
