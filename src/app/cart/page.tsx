@@ -16,7 +16,8 @@ export default function CartPage() {
   const checkoutSuccessful = useRef(false);
 
   const handleCheckout = useCheckoutHandler(checkout, state, async (paymentKey) => {
-    const stripe = await loadStripe("pk_test_51S598vCACANViDkIckOWI0EjAGYGO4HOUqsdDS3gezun9d5cBhVVRyo8hBWnPDirvuuntGu3Mf2VLOKKRWX08We300Qxr7p7uS");
+    console.log('xxx', process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
     if (!stripe) {
       console.error("Stripe failed to load");
       return;
