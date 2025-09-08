@@ -14,11 +14,9 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "\n  mutation Checkout($checkoutProducts: CheckoutInput!) {\n    checkout(checkoutProducts: $checkoutProducts) {\n      product {\n        id\n        name\n        slug\n        description\n        price\n        imageUrl\n      }\n      result {\n        status\n        additionalInfo\n      }\n    }\n  }\n": typeof types.CheckoutDocument,
     "\n  query GetProducts {\n    getProducts {\n      id\n      name\n      slug\n      description\n      price\n      imageUrl\n    }\n  }\n": typeof types.GetProductsDocument,
 };
 const documents: Documents = {
-    "\n  mutation Checkout($checkoutProducts: CheckoutInput!) {\n    checkout(checkoutProducts: $checkoutProducts) {\n      product {\n        id\n        name\n        slug\n        description\n        price\n        imageUrl\n      }\n      result {\n        status\n        additionalInfo\n      }\n    }\n  }\n": types.CheckoutDocument,
     "\n  query GetProducts {\n    getProducts {\n      id\n      name\n      slug\n      description\n      price\n      imageUrl\n    }\n  }\n": types.GetProductsDocument,
 };
 
@@ -36,10 +34,6 @@ const documents: Documents = {
  */
 export function graphql(source: string): unknown;
 
-/**
- * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function graphql(source: "\n  mutation Checkout($checkoutProducts: CheckoutInput!) {\n    checkout(checkoutProducts: $checkoutProducts) {\n      product {\n        id\n        name\n        slug\n        description\n        price\n        imageUrl\n      }\n      result {\n        status\n        additionalInfo\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation Checkout($checkoutProducts: CheckoutInput!) {\n    checkout(checkoutProducts: $checkoutProducts) {\n      product {\n        id\n        name\n        slug\n        description\n        price\n        imageUrl\n      }\n      result {\n        status\n        additionalInfo\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

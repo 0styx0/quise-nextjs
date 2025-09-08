@@ -4,8 +4,9 @@ import { useEffect, useRef } from "react";
 import { CartState, useCart } from "@/context/cartContext";
 import Image from "next/image";
 import { useCheckout } from "../hooks/graphql/useCheckout";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { ErrorMessage } from "@/components/ErrorMessage";
+import { loadStripe } from "@stripe/stripe-js";
 
 export default function CartPage() {
   const { state, removeItem, clearCart } = useCart();
@@ -14,7 +15,20 @@ export default function CartPage() {
 
   const checkoutSuccessful = useRef(false);
 
-  const handleCheckout = useCheckoutHandler(checkout, state, () => {
+  const handleCheckout = useCheckoutHandler(checkout, state, async (paymentKey) => {
+    const stripe = await loadStripe("pk_test_51S598vCACANViDkIckOWI0EjAGYGO4HOUqsdDS3gezun9d5cBhVVRyo8hBWnPDirvuuntGu3Mf2VLOKKRWX08We300Qxr7p7uS");
+    if (!stripe) {
+      console.error("Stripe failed to load");
+      return;
+    }
+
+    const { error: stripeError } = await stripe.redirectToCheckout({ sessionId: paymentKey });
+    // todo: render error
+    if (stripeError) {
+      console.error(stripeError);
+      return;
+    }
+
     checkoutSuccessful.current = true;
     router.push("/receipt");
   });
@@ -87,12 +101,12 @@ export default function CartPage() {
  *
  * @param checkout Apollo mutation function
  * @param cartState current cart state
- * @param onSuccess callback to run after successful checkout
+ * @param onSuccess callback receives Stripe session ID
  */
 function useCheckoutHandler(
   checkout: ReturnType<typeof useCheckout>[0],
   cartState: CartState,
-  onSuccess: () => void
+  onSuccess: (stripeSessionId: string) => void
 ) {
   return function handleCheckout() {
     if (cartState.products.length === 0) return;
@@ -101,7 +115,10 @@ function useCheckoutHandler(
 
     checkout({
       variables: { checkoutProducts: { products: productsToCheckout } },
-      onCompleted: onSuccess,
+      onCompleted: (data) => {
+        // Assume stripe only
+        onSuccess(data.checkout.paymentKey);
+      },
     });
   };
 }

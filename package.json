@@ -13,6 +13,7 @@
     "@apollo/client": "^4.0.0-rc.13",
     "@apollo/experimental-nextjs-app-support": "^0.13.0",
     "@heroicons/react": "^2.2.0",
+    "@stripe/stripe-js": "^7.9.0",
     "graphql": "^16.11.0",
     "graphql-tag": "^2.12.6",
     "immer": "^10.1.3",
