@@ -12,16 +12,19 @@ interface CartState {
 interface CartContext {
     addItem: (product: Product) => OpResultType;
     removeItem: (id: string) => OpResultType;
+    clearCart: () => void;
     state: CartState;
 }
 
 enum CartActionType {
   ADD_ITEM = "ADD_ITEM",
   REMOVE_ITEM = "REMOVE_ITEM",
+  CLEAR = "CLEAR"
 }
 type CartAction =
   | { type: CartActionType.ADD_ITEM; product: Product }
   | { type: CartActionType.REMOVE_ITEM; productId: string }
+  | { type: CartActionType.CLEAR; }
   
 
 const CartContext = createContext<CartContext | undefined>(undefined);
@@ -36,6 +39,9 @@ const cartReducer = (draft: CartState, action: CartAction) => {
             break;
         case CartActionType.REMOVE_ITEM:
             draft.products = draft.products.filter((product) => product.id !== action.productId);
+            break;
+        case CartActionType.CLEAR:
+            draft.products = []
             break;
             
     }
@@ -54,9 +60,12 @@ export const CartProvider = ({children}: { children: ReactNode }) => {
       dispatch({ type: CartActionType.REMOVE_ITEM, productId })
       return OpResult.SUCCESS;
     }
+    const clearCart = () => {
+      dispatch({ type: CartActionType.CLEAR })
+    }
     
     return (
-        <CartContext.Provider value={{state, addItem, removeItem}}>
+        <CartContext.Provider value={{state, addItem, removeItem, clearCart }}>
           {children}
         </CartContext.Provider>
     )

@@ -13,7 +13,7 @@ export const CartActions = ({ product }: CartActionsProps) => {
     return  <RemoveFromCartButton productId={product.id} />;
   }
 
-return <AddToCartButton product={product} />
+  return <AddToCartButton product={product} />
 };
 
 // --- Internal subcomponents ---

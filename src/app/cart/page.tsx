@@ -1,11 +1,16 @@
-
 "use client";
 
 import { useCart } from "@/context/cartContext";
 import Image from "next/image";
+import { useCheckout } from "../hooks/graphql/useCheckout";
+import { useRouter } from 'next/navigation'
 
 export default function CartPage() {
   const { state, removeItem } = useCart();
+
+  const [checkout, { loading, error }] = useCheckout();
+
+  const handleCheckout = useCheckoutHandler(checkout);
 
   if (state.products.length === 0) {
     return (
@@ -51,10 +56,52 @@ export default function CartPage() {
       </ul>
 
       <div className="mt-6 flex justify-end">
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded">
-          Checkout
+        <button
+          onClick={handleCheckout}
+          disabled={loading}
+          className={`${loading
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-blue-500 hover:bg-blue-600"
+            } text-white font-bold py-2 px-6 rounded`}
+        >
+          {loading ? "Processing..." : "Checkout"}
         </button>
       </div>
+
+      {error && (
+        <p className="mt-4 text-red-500">
+          Error during checkout: {error.message}
+        </p>
+      )}
     </div>
   );
+}
+
+/**
+ * @return fn to send cart to server to checkout
+ * 
+ * on success: clear cart, redirect to receipt page
+ * on error: log to console
+ */
+function useCheckoutHandler(checkout: ReturnType<typeof useCheckout>[0]) {
+
+  const router = useRouter()
+  const { state, clearCart } = useCart();
+
+  return function handleCheckout() {
+    if (state.products.length === 0) return;
+
+    const productsToCheckout = state.products.map((p) => ({ id: p.id }));
+
+    checkout({
+      variables: { checkoutProducts: { products: productsToCheckout } },
+      onCompleted: () => {
+        clearCart();
+        router.push('/receipt');
+      },
+      onError: (error) => {
+        console.error('Unable to checkout:', error);
+      }
+    });
+  };
 }
