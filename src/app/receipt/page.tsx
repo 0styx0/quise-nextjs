@@ -1,6 +1,3 @@
-
-"use client";
-
 export default function ReceiptPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-white to-blue-100 p-6">

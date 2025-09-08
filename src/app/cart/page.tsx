@@ -1,16 +1,31 @@
 "use client";
 
-import { useCart } from "@/context/cartContext";
+import { useEffect, useRef } from "react";
+import { CartState, useCart } from "@/context/cartContext";
 import Image from "next/image";
 import { useCheckout } from "../hooks/graphql/useCheckout";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import { ErrorMessage } from "@/components/ErrorMessage";
 
 export default function CartPage() {
-  const { state, removeItem } = useCart();
-
+  const { state, removeItem, clearCart } = useCart();
   const [checkout, { loading, error }] = useCheckout();
+  const router = useRouter();
 
-  const handleCheckout = useCheckoutHandler(checkout);
+  const checkoutSuccessful = useRef(false);
+
+  const handleCheckout = useCheckoutHandler(checkout, state, () => {
+    checkoutSuccessful.current = true;
+    router.push("/receipt");
+  });
+
+  useEffect(() => {
+    return () => {
+      if (checkoutSuccessful.current) {
+        clearCart();
+      }
+    };
+  }, [clearCart]);
 
   if (state.products.length === 0) {
     return (
@@ -26,10 +41,7 @@ export default function CartPage() {
       <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
       <ul className="divide-y divide-gray-200">
         {state.products.map((product) => (
-          <li
-            key={product.id}
-            className="flex items-center justify-between py-4"
-          >
+          <li key={product.id} className="flex items-center justify-between py-4">
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 rounded border">
                 <Image
@@ -59,49 +71,37 @@ export default function CartPage() {
         <button
           onClick={handleCheckout}
           disabled={loading}
-          className={`${loading
-              ? "bg-gray-300 cursor-not-allowed"
-              : "bg-blue-500 hover:bg-blue-600"
-            } text-white font-bold py-2 px-6 rounded`}
+          className={`${loading ? "bg-gray-300 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"} text-white font-bold py-2 px-6 rounded`}
         >
           {loading ? "Processing..." : "Checkout"}
         </button>
       </div>
 
-      {error && (
-        <p className="mt-4 text-red-500">
-          Error during checkout: {error.message}
-        </p>
-      )}
+      {error && <ErrorMessage title="Error checking out!" message={error.message} />}
     </div>
   );
 }
 
 /**
- * @return fn to send cart to server to checkout
- * 
- * on success: clear cart, redirect to receipt page
- * on error: log to console
+ * Returns a handler to checkout cart
+ *
+ * @param checkout Apollo mutation function
+ * @param cartState current cart state
+ * @param onSuccess callback to run after successful checkout
  */
-function useCheckoutHandler(checkout: ReturnType<typeof useCheckout>[0]) {
-
-  const router = useRouter()
-  const { state, clearCart } = useCart();
-
+function useCheckoutHandler(
+  checkout: ReturnType<typeof useCheckout>[0],
+  cartState: CartState,
+  onSuccess: () => void
+) {
   return function handleCheckout() {
-    if (state.products.length === 0) return;
+    if (cartState.products.length === 0) return;
 
-    const productsToCheckout = state.products.map((p) => ({ id: p.id }));
+    const productsToCheckout = cartState.products.map((p) => ({ id: p.id }));
 
     checkout({
       variables: { checkoutProducts: { products: productsToCheckout } },
-      onCompleted: () => {
-        clearCart();
-        router.push('/receipt');
-      },
-      onError: (error) => {
-        console.error('Unable to checkout:', error);
-      }
+      onCompleted: onSuccess,
     });
   };
 }

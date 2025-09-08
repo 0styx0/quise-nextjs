@@ -5,7 +5,7 @@ import { OpResult, OpResultType } from "@/lib/utils/flags";
 import { createContext, useContext, ReactNode } from "react";
 import { useImmerReducer } from "use-immer";
 
-interface CartState {
+export interface CartState {
   products: Product[];
 };
 
