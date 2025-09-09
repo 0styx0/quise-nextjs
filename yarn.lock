@@ -22,10 +22,25 @@
   dependencies:
     "@apollo/client-react-streaming" "0.13.0"
 
+"@apollo/client-integration-nextjs@^0.13.1":
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/@apollo/client-integration-nextjs/-/client-integration-nextjs-0.13.1.tgz#8fc1a4f2c2dcf82bb505f9fcc7e1c6bf2a498aa2"
+  integrity sha512-NAC2IRpSTrpaBBwkd5KvVK4+RLa0SzoUFRiu668YuyhI41ExxaCj+VDcUBRox9ba1lw60si5gD3TH8o+mLBnRQ==
+  dependencies:
+    "@apollo/client-react-streaming" "0.13.1"
+
 "@apollo/client-react-streaming@0.13.0":
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/@apollo/client-react-streaming/-/client-react-streaming-0.13.0.tgz#abd9bd4d63e2b249317a161fedee31577e54a63a"
   integrity sha512-a6dDTojTn09Ft5zUAEB3qLszht35W1LNezAT/ktZKSGvIEKjp2uUdnlPF2kaWbqUV6+D5Lz0FGQ89wuZzpBnsw==
+  dependencies:
+    "@types/react-dom" "^19.0.0"
+    "@wry/equality" "^0.5.6"
+
+"@apollo/client-react-streaming@0.13.1":
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/@apollo/client-react-streaming/-/client-react-streaming-0.13.1.tgz#57bcd23dfb2ce999698cdca94a5e6df53b246003"
+  integrity sha512-rdO5D2frQsCKiIBM1/GAOyCeMnioroj831gWbVik8w+78L1ZwPkdROC349UlBwS69+O1f17GDe+/HzTMTJgN0A==
   dependencies:
     "@types/react-dom" "^19.0.0"
     "@wry/equality" "^0.5.6"
