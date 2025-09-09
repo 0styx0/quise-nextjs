@@ -33,11 +33,17 @@ export type InitiateCheckout = {
 export type Mutation = {
   __typename?: 'Mutation';
   checkout: InitiateCheckout;
+  fetchOrder: StripeCheckoutSession;
 };
 
 
 export type MutationCheckoutArgs = {
   checkoutProducts: CheckoutInput;
+};
+
+
+export type MutationFetchOrderArgs = {
+  paymentKey: Scalars['String']['input'];
 };
 
 export type Product = {
@@ -55,10 +61,41 @@ export type Query = {
   getProducts: Array<Product>;
 };
 
+export type StripeCheckoutSession = {
+  __typename?: 'StripeCheckoutSession';
+  customerEmail: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  lineItems: Array<StripeLineItem>;
+  priceTotal: Scalars['Int']['output'];
+};
+
+export type StripeLineItem = {
+  __typename?: 'StripeLineItem';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  priceUnit: Scalars['Int']['output'];
+};
+
+export type CheckoutMutationVariables = Exact<{
+  checkoutProducts: CheckoutInput;
+}>;
+
+
+export type CheckoutMutation = { __typename?: 'Mutation', checkout: { __typename?: 'InitiateCheckout', paymentKey: string } };
+
+export type FetchOrderMutationVariables = Exact<{
+  paymentKey: Scalars['String']['input'];
+}>;
+
+
+export type FetchOrderMutation = { __typename?: 'Mutation', fetchOrder: { __typename?: 'StripeCheckoutSession', id: string, priceTotal: number, customerEmail: string, lineItems: Array<{ __typename?: 'StripeLineItem', id: string, name: string, priceUnit: number }> } };
+
 export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetProductsQuery = { __typename?: 'Query', getProducts: Array<{ __typename?: 'Product', id: string, name: string, slug: string, description: string, price: number, imageUrl: string }> };
 
 
+export const CheckoutDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"Checkout"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"checkoutProducts"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CheckoutInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"checkout"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"checkoutProducts"},"value":{"kind":"Variable","name":{"kind":"Name","value":"checkoutProducts"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"paymentKey"}}]}}]}}]} as unknown as DocumentNode<CheckoutMutation, CheckoutMutationVariables>;
+export const FetchOrderDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"FetchOrder"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"paymentKey"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fetchOrder"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"paymentKey"},"value":{"kind":"Variable","name":{"kind":"Name","value":"paymentKey"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"priceTotal"}},{"kind":"Field","name":{"kind":"Name","value":"customerEmail"}},{"kind":"Field","name":{"kind":"Name","value":"lineItems"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"priceUnit"}}]}}]}}]}}]} as unknown as DocumentNode<FetchOrderMutation, FetchOrderMutationVariables>;
 export const GetProductsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProducts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getProducts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"price"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}}]}}]}}]} as unknown as DocumentNode<GetProductsQuery, GetProductsQueryVariables>;

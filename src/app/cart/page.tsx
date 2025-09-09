@@ -16,7 +16,6 @@ export default function CartPage() {
   const checkoutSuccessful = useRef(false);
 
   const handleCheckout = useCheckoutHandler(checkout, state, async (paymentKey) => {
-    console.log('xxx', process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
     if (!stripe) {
       console.error("Stripe failed to load");
@@ -117,7 +116,6 @@ function useCheckoutHandler(
     checkout({
       variables: { checkoutProducts: { products: productsToCheckout } },
       onCompleted: (data) => {
-        // Assume stripe only
         onSuccess(data.checkout.paymentKey);
       },
     });
