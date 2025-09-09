@@ -1,11 +1,10 @@
-"use client"
 
 import { ProductCard } from "@/components/product/ProductCard/ProductCard";
-import { useGetProducts } from "../hooks/graphql/useGetProducts";
+import { getProducts } from "../../lib/helpers/getProducts";
 
-export default function Home() {
+export default async function Home() {
   
-  const { data, loading, error } = useGetProducts()
+  const { data } = await getProducts()
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-200 via-pink-100 to-pink-50 p-6">

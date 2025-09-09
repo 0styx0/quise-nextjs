@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ErrorMessage } from "@/components/ErrorMessage";
-import { useFetchOrder } from "../hooks/graphql/useFetchOrder";
+import { useFetchOrder } from "../../lib/hooks/graphql/useFetchOrder";
 import { StripeCheckoutSession } from "@/generated/graphql/graphql";
 import { OrderOverview } from "@/components/receipt/OrderOverview";
 import { OrderLineItems } from "@/components/receipt/OrderLineItems";

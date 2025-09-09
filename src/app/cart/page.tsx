@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { CartState, useCart } from "@/context/cartContext";
 import Image from "next/image";
-import { useCheckout } from "../hooks/graphql/useCheckout";
+import { useCheckout } from "../../lib/hooks/graphql/useCheckout";
 import { useRouter } from "next/navigation";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { loadStripe } from "@stripe/stripe-js";
