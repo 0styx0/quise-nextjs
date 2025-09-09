@@ -4,11 +4,11 @@ import { priceFormatter } from "@/lib/utils/formatters";
 interface OrderOverviewProps {
     order: StripeCheckoutSession
 }
+
 export function OrderOverview({ order }: OrderOverviewProps) {
     return (
         <ul className="space-y-2 text-gray-600">
             <OrderOverviewItem label="Order ID" contents={order.id} />
-            <OrderOverviewItem label="Email" contents={order.customerEmail} />
             <OrderOverviewItem label="Total" contents={priceFormatter.format(order.priceTotal / 100)} />
         </ul>
     )
@@ -21,7 +21,7 @@ interface OrderOverviewItemProps {
 function OrderOverviewItem({ label, contents }: OrderOverviewItemProps) {
 
     return (
-        <li>
+        <li className="truncate">
             <span className="font-medium">{label}:</span> {contents}
         </li>
     )

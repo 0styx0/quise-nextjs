@@ -5,7 +5,6 @@ export const FETCH_ORDER = gql`
     fetchOrder(paymentKey: $paymentKey) {
       id
       priceTotal
-      customerEmail
       lineItems {
         id
         name

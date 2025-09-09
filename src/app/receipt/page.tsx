@@ -55,7 +55,7 @@ export default function ReceiptPage() {
           <h2 className="text-lg font-semibold mb-4">Receipt Details</h2>
           <OrderOverview order={order} />
 
-          <h3 className="text-md font-semibold mt-4 mb-2">Line Items</h3>
+          <h3 className="text-md font-semibold mt-4 mb-2">Items</h3>
           <OrderLineItems lineItems={order.lineItems} />
         </div>
       </div>
