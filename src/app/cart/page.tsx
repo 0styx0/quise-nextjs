@@ -7,6 +7,7 @@ import { useCheckout } from "../../lib/hooks/graphql/useCheckout";
 import { useRouter } from "next/navigation";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { loadStripe } from "@stripe/stripe-js";
+import { priceFormatter } from "@/lib/utils/formatters";
 
 export default function CartPage() {
   const { state, removeItem, clearCart } = useCart();
@@ -69,6 +70,7 @@ export default function CartPage() {
               <div>
                 <p className="font-medium text-gray-900">{product.name}</p>
                 <p className="text-gray-600 text-sm">{product.description}</p>
+                <p className="text-gray-600 text-sm">{priceFormatter.format(product.price)}</p>
               </div>
             </div>
             <button
