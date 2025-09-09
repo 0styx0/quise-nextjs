@@ -1,11 +1,11 @@
+"use client"
 
 import { ProductCard } from "@/components/product/ProductCard/ProductCard";
-import { GetProductsQuery } from "@/generated/graphql/graphql";
-import { graphqlClient } from "@/lib/apolloClient";
-import { GET_PRODUCTS } from "@/lib/queries/getProducts";
+import { useGetProducts } from "../hooks/graphql/useGetProducts";
 
-export default async function Home() {
-  const { data } = await graphqlClient.query<GetProductsQuery>({ query: GET_PRODUCTS })
+export default function Home() {
+  
+  const { data, loading, error } = useGetProducts()
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-200 via-pink-100 to-pink-50 p-6">
