@@ -24,3 +24,7 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.x-themed-gradient {
+  @apply bg-gradient-to-br from-pink-200 via-pink-100 to-pink-50;
+}
