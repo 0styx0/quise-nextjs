@@ -7,7 +7,7 @@ interface OrderOverviewProps {
 
 export function OrderOverview({ order }: OrderOverviewProps) {
     return (
-        <ul className="space-y-2 text-gray-600">
+        <ul className="space-y-2">
             <OrderOverviewItem label="Order ID" contents={order.id} />
             <OrderOverviewItem label="Total" contents={priceFormatter.format(order.priceTotal / 100)} />
         </ul>
@@ -22,7 +22,7 @@ function OrderOverviewItem({ label, contents }: OrderOverviewItemProps) {
 
     return (
         <li className="truncate">
-            <span className="font-medium">{label}:</span> {contents}
+            <span>{label}:</span> {contents}
         </li>
     )
 }
