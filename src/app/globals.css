@@ -26,5 +26,6 @@ body {
 }
 
 .x-themed-gradient {
-  @apply bg-gradient-to-br from-pink-200 via-pink-100 to-pink-50;
+  /* p-6 for navbar spacing */
+  @apply min-h-screen bg-gradient-to-br from-pink-200 via-pink-100 to-pink-50 p-6;
 }

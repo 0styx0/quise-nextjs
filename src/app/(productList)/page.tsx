@@ -7,7 +7,7 @@ export default async function Home() {
   const { data } = await getProducts()
 
   return (
-    <div className="min-h-screen x-themed-gradient p-6">
+    <div className="min-h-screen x-themed-gradient">
       {/* Header */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold">Get your heart&apos;s desire</h1>
