@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { CartState, useCart } from "@/context/cartContext";
 import Image from "next/image";
 import { useCheckout } from "../../lib/hooks/graphql/useCheckout";
-import { useRouter } from "next/navigation";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { loadStripe } from "@stripe/stripe-js";
 import { priceFormatter } from "@/lib/utils/formatters";
@@ -13,14 +11,11 @@ export default function CartPage() {
   const { state, removeItem } = useCart();
   const [checkout, { loading, error }] = useCheckout();
 
-  const handleCheckout = useCheckoutHandler(checkout, state, async (paymentKey) => {
+  const handleCheckout = getCheckoutHandler(checkout, state, async (paymentKey) => {
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-    if (!stripe) {
-      console.error("Stripe failed to load");
-      return;
-    }
 
-    stripe.redirectToCheckout({ sessionId: paymentKey });
+    // stripe=null handled by error section below
+    stripe?.redirectToCheckout({ sessionId: paymentKey });
   });
 
   if (state.products.length === 0) {
@@ -86,7 +81,7 @@ export default function CartPage() {
  * @param cartState current cart state
  * @param onSuccess callback receives Stripe session ID
  */
-function useCheckoutHandler(
+function getCheckoutHandler(
   checkout: ReturnType<typeof useCheckout>[0],
   cartState: CartState,
   onSuccess: (stripeSessionId: string) => void
