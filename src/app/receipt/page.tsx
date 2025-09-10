@@ -1,46 +1,16 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { ErrorMessage } from "@/components/ErrorMessage";
-import { useFetchOrder } from "../../lib/hooks/graphql/useFetchOrder";
-import { StripeCheckoutSession } from "@/generated/graphql/graphql";
 import { OrderOverview } from "@/components/receipt/OrderOverview";
 import { OrderLineItems } from "@/components/receipt/OrderLineItems";
+import { getOrder } from "@/lib/helpers/getOrder";
 
-export default function ReceiptPage() {
-  const searchParams = useSearchParams();
-  const sessionId = searchParams.get("session_id");
+export default async function ReceiptPage({ searchParams }: { searchParams: { session_id?: string } }) {
 
-  const [fetchOrder, { loading, error }] = useFetchOrder();
-  const [order, setOrder] = useState<StripeCheckoutSession>()
 
-  useEffect(() => {
-    if (!sessionId) return;
+  const paymentKey = (await searchParams).session_id || ''
+  const { order, error} = await getOrder(paymentKey)
 
-    fetchOrder({ variables: { paymentKey: sessionId } })
-      .then((res) => {
-        if (res.data?.fetchOrder) {
-          setOrder(res.data.fetchOrder);
-        }
-      })
-      .catch((err) => {
-        console.error("Fetch order failed:", err);
-      });
-  }, [sessionId, fetchOrder]);
-
-  if (!sessionId) {
-    return (
-      <ErrorMessage title="Unable to find order" message="Invalid payment ID" />
-    );
-  }
-
-  if (loading || !order) {
-    return <p>Loading receipt...</p>;
-  }
-
-  if (error) {
-    return <ErrorMessage title="Unable to fetch order" message={error.message} />;
+  if (!paymentKey || !order || error) {
+    return <ErrorMessage title="Unable to fetch order" message={error?.message || ''} />;
   }
 
   return (

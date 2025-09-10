@@ -5,7 +5,6 @@ interface ErrorMessageProps {
 }
 
 export function ErrorMessage({ title = "Error", message }: ErrorMessageProps) {
-  if (!message) return null;
 
   console.error('Quise Error:', title, message);
 
