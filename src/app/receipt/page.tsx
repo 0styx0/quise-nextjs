@@ -2,8 +2,14 @@ import { ErrorMessage } from "@/components/ErrorMessage";
 import { OrderOverview } from "@/components/receipt/OrderOverview";
 import { OrderLineItems } from "@/components/receipt/OrderLineItems";
 import { getOrder } from "@/lib/helpers/getOrder";
+import { ClearCart } from "./ClearCart";
 
-export default async function ReceiptPage({ searchParams }: { searchParams: { session_id?: string } }) {
+interface ReceiptPageProps {
+  searchParams: {
+    session_id?: string
+  }
+}
+export default async function ReceiptPage({ searchParams }: ReceiptPageProps) {
 
 
   const paymentKey = (await searchParams).session_id || ''
@@ -15,6 +21,7 @@ export default async function ReceiptPage({ searchParams }: { searchParams: { se
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-100 via-white to-blue-100 p-6">
+      <ClearCart />
       <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-8 text-center wrap-break-word">
         <h1 className="text-3xl font-bold text-gray-800 mb-4">
           🎉 Congrats! Your Order is Complete! 🎉

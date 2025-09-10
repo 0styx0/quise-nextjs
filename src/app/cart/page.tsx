@@ -10,11 +10,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import { priceFormatter } from "@/lib/utils/formatters";
 
 export default function CartPage() {
-  const { state, removeItem, clearCart } = useCart();
+  const { state, removeItem } = useCart();
   const [checkout, { loading, error }] = useCheckout();
-  const router = useRouter();
-
-  const checkoutSuccessful = useRef(false);
 
   const handleCheckout = useCheckoutHandler(checkout, state, async (paymentKey) => {
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
@@ -23,24 +20,8 @@ export default function CartPage() {
       return;
     }
 
-    const { error: stripeError } = await stripe.redirectToCheckout({ sessionId: paymentKey });
-    // todo: render error
-    if (stripeError) {
-      console.error(stripeError);
-      return;
-    }
-
-    checkoutSuccessful.current = true;
-    router.push("/receipt");
+    stripe.redirectToCheckout({ sessionId: paymentKey });
   });
-
-  useEffect(() => {
-    return () => {
-      if (checkoutSuccessful.current) {
-        clearCart();
-      }
-    };
-  }, [clearCart]);
 
   if (state.products.length === 0) {
     return (
