@@ -15,12 +15,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 type Documents = {
     "\n  mutation Checkout($checkoutProducts: CheckoutInput!) {\n    checkout(checkoutProducts: $checkoutProducts) {\n      paymentKey\n    }\n  }\n": typeof types.CheckoutDocument,
-    "\n  mutation FetchOrder($paymentKey: String!) {\n    fetchOrder(paymentKey: $paymentKey) {\n      id\n      priceTotal\n      lineItems {\n        id\n        name\n        priceUnit\n      }\n    }\n  }\n": typeof types.FetchOrderDocument,
+    "\n  query FetchOrder($paymentKey: String!) {\n    fetchOrder(paymentKey: $paymentKey) {\n      id\n      priceTotal\n      lineItems {\n        id\n        name\n        priceUnit\n      }\n    }\n  }\n": typeof types.FetchOrderDocument,
     "\n  query GetProducts {\n    getProducts {\n      id\n      name\n      slug\n      description\n      price\n      imageUrl\n    }\n  }\n": typeof types.GetProductsDocument,
 };
 const documents: Documents = {
     "\n  mutation Checkout($checkoutProducts: CheckoutInput!) {\n    checkout(checkoutProducts: $checkoutProducts) {\n      paymentKey\n    }\n  }\n": types.CheckoutDocument,
-    "\n  mutation FetchOrder($paymentKey: String!) {\n    fetchOrder(paymentKey: $paymentKey) {\n      id\n      priceTotal\n      lineItems {\n        id\n        name\n        priceUnit\n      }\n    }\n  }\n": types.FetchOrderDocument,
+    "\n  query FetchOrder($paymentKey: String!) {\n    fetchOrder(paymentKey: $paymentKey) {\n      id\n      priceTotal\n      lineItems {\n        id\n        name\n        priceUnit\n      }\n    }\n  }\n": types.FetchOrderDocument,
     "\n  query GetProducts {\n    getProducts {\n      id\n      name\n      slug\n      description\n      price\n      imageUrl\n    }\n  }\n": types.GetProductsDocument,
 };
 
@@ -45,7 +45,7 @@ export function graphql(source: "\n  mutation Checkout($checkoutProducts: Checko
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  mutation FetchOrder($paymentKey: String!) {\n    fetchOrder(paymentKey: $paymentKey) {\n      id\n      priceTotal\n      lineItems {\n        id\n        name\n        priceUnit\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation FetchOrder($paymentKey: String!) {\n    fetchOrder(paymentKey: $paymentKey) {\n      id\n      priceTotal\n      lineItems {\n        id\n        name\n        priceUnit\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  query FetchOrder($paymentKey: String!) {\n    fetchOrder(paymentKey: $paymentKey) {\n      id\n      priceTotal\n      lineItems {\n        id\n        name\n        priceUnit\n      }\n    }\n  }\n"): (typeof documents)["\n  query FetchOrder($paymentKey: String!) {\n    fetchOrder(paymentKey: $paymentKey) {\n      id\n      priceTotal\n      lineItems {\n        id\n        name\n        priceUnit\n      }\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
