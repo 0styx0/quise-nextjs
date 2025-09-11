@@ -4,11 +4,12 @@ import { OrderLineItems } from "@/components/receipt/OrderLineItems";
 import { getOrder } from "@/lib/helpers/getOrder";
 import { ClearCart } from "./ClearCart";
 
-interface ReceiptPageProps {
-  searchParams: {
+interface ReceiptPageProps extends PageProps<'/receipt'> {
+  searchParams: Promise<{
     session_id?: string
-  }
+  }>
 }
+
 export default async function ReceiptPage({ searchParams }: ReceiptPageProps) {
 
 

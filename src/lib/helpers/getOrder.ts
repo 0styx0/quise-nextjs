@@ -4,10 +4,10 @@ import { FETCH_ORDER } from "../queries/fetchOrder"
 
 export async function getOrder(paymentKey: string) {
 
-    const { data: orderMutation, error } = await getClient().query<FetchOrderQuery, FetchOrderQueryVariables>({ query: FETCH_ORDER, variables: { paymentKey } })
+    const { data: orderQuery, error } = await getClient().query<FetchOrderQuery, FetchOrderQueryVariables>({ query: FETCH_ORDER, variables: { paymentKey } })
 
     return {
-        order: orderMutation?.fetchOrder,
+        order: orderQuery?.fetchOrder,
         error
     }
 }
