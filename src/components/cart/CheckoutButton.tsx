@@ -4,6 +4,7 @@ import { useCart } from "@/context/cartContext";
 import { useCheckout } from "@/lib/hooks/graphql/useCheckout";
 import { loadStripe } from "@stripe/stripe-js";
 import { ErrorMessage } from "../ErrorMessage";
+import Button from "../shared/Button";
 
 export function CheckoutButton() {
 
@@ -31,16 +32,12 @@ export function CheckoutButton() {
             {error && <ErrorMessage title="Error checking out!" message={error.message} />}
 
             <div className="mt-6 flex justify-end">
-                <button
+                <Button
                     onClick={handleCheckout}
                     disabled={shouldDisableButton}
-                    className={`${(shouldDisableButton)
-                        ? "bg-gray-300 cursor-not-allowed"
-                        : "bg-blue-500 hover:bg-blue-600"
-                        } text-white font-bold py-2 px-6 rounded`}
                 >
                     {loading ? "Processing..." : "Checkout"}
-                </button>
+                </Button>
 
             </div>
         </>
