@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { NavBar } from "./(navbar)/Navbar";
+import { NavBar } from "../components/app/Navbar";
 import { ClientProviders } from "@/components/app/ClientProviders";
 
 const geistSans = Geist({
@@ -15,7 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Quise",
+  title: {
+    template: '%s | Quise',
+    default: "Quise",
+  },
   description: "Quality merchandise for discerning customers",
 };
 
