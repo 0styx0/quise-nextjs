@@ -3,6 +3,11 @@ import { OrderOverview } from "@/components/receipt/OrderOverview";
 import { OrderLineItems } from "@/components/receipt/OrderLineItems";
 import { getOrder } from "@/lib/helpers/getOrder";
 import { ClearCart } from "./ClearCart";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Receipt',
+}
 
 interface ReceiptPageProps extends PageProps<'/receipt'> {
   searchParams: Promise<{

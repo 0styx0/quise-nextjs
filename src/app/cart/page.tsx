@@ -1,6 +1,11 @@
 
 import { CheckoutButton } from "@/components/cart/CheckoutButton";
 import { CartItems } from "@/components/cart/CartItems";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: 'Cart',
+}
 
 export default function CartPage() {
 
