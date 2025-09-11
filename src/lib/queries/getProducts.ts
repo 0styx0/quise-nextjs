@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const GET_PRODUCTS = gql`
   query GetProducts {
@@ -11,4 +11,4 @@ export const GET_PRODUCTS = gql`
       imageUrl
     }
   }
-`
+`;

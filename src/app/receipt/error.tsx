@@ -1,14 +1,11 @@
-'use client'
+"use client";
 
 import { ErrorMessage } from "@/components/ErrorMessage";
 
 interface ErrorProps {
-    error: Error
+  error: Error;
 }
 
 export default function Error({ error }: ErrorProps) {
-    
-    return (
-        <ErrorMessage title="Unable to fetch order" message={error.message} />
-    )
+  return <ErrorMessage title="Unable to fetch order" message={error.message} />;
 }

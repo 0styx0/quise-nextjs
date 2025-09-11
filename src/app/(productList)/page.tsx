@@ -1,10 +1,8 @@
-
 import { ProductCard } from "@/components/product/ProductCard/ProductCard";
 import { getProducts } from "../../lib/helpers/getProducts";
 
 export default async function Home() {
-  
-  const { data } = await getProducts()
+  const { data } = await getProducts();
 
   return (
     <div className="min-h-screen x-themed-gradient">

@@ -1,12 +1,10 @@
-
 interface ErrorMessageProps {
   title?: string;
   message: string;
 }
 
 export function ErrorMessage({ title = "Error", message }: ErrorMessageProps) {
-
-  console.error('Quise Error:', title, message);
+  console.error("Quise Error:", title, message);
 
   return (
     <div className="mt-4 p-4 rounded bg-red-50 border border-red-200">

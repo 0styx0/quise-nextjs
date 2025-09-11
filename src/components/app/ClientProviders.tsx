@@ -1,4 +1,3 @@
-
 "use client";
 
 import { CartProvider } from "@/context/cartContext";
@@ -7,11 +6,9 @@ import { ApolloNextAppProvider } from "@apollo/client-integration-nextjs";
 import { ReactNode } from "react";
 
 export const ClientProviders = ({ children }: { children: ReactNode }) => {
-    return (
-        <ApolloNextAppProvider makeClient={makeClient}>
-          <CartProvider>
-          {children}
-          </CartProvider>
-        </ApolloNextAppProvider>
-    )
+  return (
+    <ApolloNextAppProvider makeClient={makeClient}>
+      <CartProvider>{children}</CartProvider>
+    </ApolloNextAppProvider>
+  );
 };

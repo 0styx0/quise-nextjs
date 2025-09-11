@@ -1,15 +1,14 @@
-'use client'
+"use client";
 
 import Image from "next/image";
 import { useCart } from "@/context/cartContext";
 import { priceFormatter } from "@/lib/utils/formatters";
 
 export function CartItems() {
-
   const { state, removeItem } = useCart();
 
   if (state.products.length === 0) {
-    return <EmptyCart />
+    return <EmptyCart />;
   }
 
   return (
@@ -23,12 +22,15 @@ export function CartItems() {
                 alt={product.name}
                 width={64}
                 height={64}
-                className="w-full h-full object-cover rounded" />
+                className="w-full h-full object-cover rounded"
+              />
             </div>
             <div>
               <p className="font-medium text-gray-900">{product.name}</p>
               <p className="text-gray-600 text-sm">{product.description}</p>
-              <p className="text-gray-600 text-sm">{priceFormatter.format(product.price)}</p>
+              <p className="text-gray-600 text-sm">
+                {priceFormatter.format(product.price)}
+              </p>
             </div>
           </div>
           <button
@@ -50,5 +52,3 @@ function EmptyCart() {
     </div>
   );
 }
-
-

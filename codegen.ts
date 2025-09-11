@@ -1,5 +1,4 @@
-
-import type { CodegenConfig } from '@graphql-codegen/cli';
+import type { CodegenConfig } from "@graphql-codegen/cli";
 
 // creates typescript types from graphql schema
 const config: CodegenConfig = {
@@ -10,9 +9,9 @@ const config: CodegenConfig = {
   generates: {
     "src/generated/graphql/": {
       preset: "client",
-      plugins: []
-    }
-  }
+      plugins: [],
+    },
+  },
 };
 
 export default config;

@@ -6,23 +6,26 @@ import { ClearCart } from "./ClearCart";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Receipt',
-}
+  title: "Receipt",
+};
 
-interface ReceiptPageProps extends PageProps<'/receipt'> {
+interface ReceiptPageProps extends PageProps<"/receipt"> {
   searchParams: Promise<{
-    session_id?: string
-  }>
+    session_id?: string;
+  }>;
 }
 
 export default async function ReceiptPage({ searchParams }: ReceiptPageProps) {
-
-
-  const paymentKey = (await searchParams).session_id || ''
-  const { order, error} = await getOrder(paymentKey)
+  const paymentKey = (await searchParams).session_id || "";
+  const { order, error } = await getOrder(paymentKey);
 
   if (!paymentKey || !order || error) {
-    return <ErrorMessage title="Unable to fetch order" message={error?.message || ''} />;
+    return (
+      <ErrorMessage
+        title="Unable to fetch order"
+        message={error?.message || ""}
+      />
+    );
   }
 
   return (

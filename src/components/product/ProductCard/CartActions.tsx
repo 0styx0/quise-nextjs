@@ -10,10 +10,10 @@ export const CartActions = ({ product }: CartActionsProps) => {
   const inCart = state.products.some((p) => p.id === product.id);
 
   if (inCart) {
-    return  <RemoveFromCartButton productId={product.id} />;
+    return <RemoveFromCartButton productId={product.id} />;
   }
 
-  return <AddToCartButton product={product} />
+  return <AddToCartButton product={product} />;
 };
 
 // --- Internal subcomponents ---
