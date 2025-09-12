@@ -72,4 +72,5 @@ export async function handleLogin(
 export async function logout() {
   // can also send request to server to invalidate token. but keeping it simple
   (await cookies()).delete(authCookieName)
+  redirect(routes.home)
 }
