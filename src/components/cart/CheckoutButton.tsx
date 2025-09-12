@@ -3,7 +3,7 @@
 import { useCart } from "@/context/cartContext";
 import { useCheckout } from "@/lib/hooks/graphql/useCheckout";
 import { loadStripe } from "@stripe/stripe-js";
-import { ErrorMessage } from "../ErrorMessage";
+import { ErrorMessage } from "../shared/ErrorMessage";
 import Button from "../shared/Button";
 
 export function CheckoutButton() {

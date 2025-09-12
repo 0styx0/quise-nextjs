@@ -3,7 +3,7 @@
 import Form from "next/form";
 import React, { useActionState } from "react";
 import { handleCreateProducts } from "./createProducts";
-import { ErrorMessage } from "@/components/ErrorMessage";
+import { ErrorMessage } from "@/components/shared/ErrorMessage";
 import Button from "@/components/shared/Button";
 
 export default function NewProductPage() {

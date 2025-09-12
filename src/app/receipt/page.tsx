@@ -1,4 +1,4 @@
-import { ErrorMessage } from "@/components/ErrorMessage";
+import { ErrorMessage } from "@/components/shared/ErrorMessage";
 import { OrderOverview } from "@/components/receipt/OrderOverview";
 import { OrderLineItems } from "@/components/receipt/OrderLineItems";
 import { getOrder } from "@/lib/helpers/getOrder";

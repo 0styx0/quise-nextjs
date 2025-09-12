@@ -1,6 +1,6 @@
 "use client";
 
-import { ErrorMessage } from "@/components/ErrorMessage";
+import { ErrorMessage } from "@/components/shared/ErrorMessage";
 
 interface ErrorProps {
   error: Error;
