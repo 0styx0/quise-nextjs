@@ -24,7 +24,7 @@ export async function sendLoginReq(username: string, password: string): Promise<
   if (!res.ok) {
     return res.json().then((e) => ({ error: e }));
   }
-  
+
   const resp = await res.json() as ApiLoginResponse;
 
   (await cookies()).set({
@@ -36,7 +36,7 @@ export async function sendLoginReq(username: string, password: string): Promise<
     path: "/",
   });
 
-  return { };
+  return {};
 }
 
 export const getAuthToken = async () =>
@@ -44,11 +44,16 @@ export const getAuthToken = async () =>
 
 export const getUser = async () => {
   const jwt = await getAuthToken()
-  const decoded = jwtDecode<ApiLoginResponse>(jwt)
 
-  // avoid sending token to client
-  return {
-    username: decoded.username
+  try {
+    const decoded = jwtDecode<ApiLoginResponse>(jwt)
+    return {
+      username: decoded.username
+    }
+  } catch (e) {
+    return {
+      username: ''
+    }
   }
 }
 
@@ -60,4 +65,9 @@ export async function handleLogin(
   const password = formData.get("password") as string;
 
   return sendLoginReq(username, password)
+}
+
+export async function logout() {
+  // can also send request to server to invalidate token. but keeping it simple
+  (await cookies()).delete(authCookieName)
 }

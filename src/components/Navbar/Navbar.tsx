@@ -16,7 +16,7 @@ export async function NavBar() {
         Quise
       </Link>
 
-      <AdminDropdown username={user.username} />
+      {user.username && <AdminDropdown username={user.username} />}
 
       {/* Right: Cart */}
       <div className="relative">
