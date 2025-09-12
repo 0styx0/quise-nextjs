@@ -6,7 +6,7 @@ import { handleCreateProducts } from "./createProducts";
 import { ErrorMessage } from "@/components/shared/ErrorMessage";
 import Button from "@/components/shared/Button";
 import { SuccessMessage } from "@/components/shared/SuccessMessage";
-
+import { PageHeading } from "@/components/shared/PageHeading";
 
 export default function NewProductPage() {
   const [state, formAction, pending] = useActionState(handleCreateProducts, {
@@ -17,7 +17,7 @@ export default function NewProductPage() {
 
   return (
     <Form action={formAction} className="space-y-4 max-w-md mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Add Product</h1>
+      <PageHeading heading="Add Product" />
 
       {state.error && (
         <ErrorMessage
@@ -151,9 +151,9 @@ function ImageUrlField() {
                    user-invalid:border-red-500 user-valid:border-green-500"
       />
       <p className="mt-1 text-sm text-red-600 hidden peer-user-invalid:block">
-        Must be a valid Flickr image URL (https://live.staticflickr.com/aaaa/bbbb).
+        Must be a valid Flickr image URL
+        (https://live.staticflickr.com/aaaa/bbbb).
       </p>
     </div>
   );
 }
-
