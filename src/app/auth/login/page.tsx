@@ -7,7 +7,7 @@ import { useActionState } from "react";
 
 export default function LoginPage() {
   
-  const [state, formAction, pending] = useActionState(handleLogin, { access_token: ''});
+  const [state, formAction, pending] = useActionState(handleLogin, { });
 
   return (
     <Form action={formAction} className="space-y-4 max-w-md mx-auto p-4">

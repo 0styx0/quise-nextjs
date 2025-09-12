@@ -1,6 +1,8 @@
 'use server'
 import { cookies } from "next/headers";
 import { jwtDecode } from 'jwt-decode';
+import { redirect } from "next/navigation";
+import { routes } from "@/lib/utils/routes";
 const authCookieName = "jwt";
 
 interface ApiLoginResponse {
@@ -36,7 +38,7 @@ export async function sendLoginReq(username: string, password: string): Promise<
     path: "/",
   });
 
-  return {};
+  redirect(routes.productsNew)
 }
 
 export const getAuthToken = async () =>

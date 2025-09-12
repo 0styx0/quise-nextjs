@@ -1,5 +1,6 @@
 "use client";
 import { logout } from "@/app/auth/login/auth";
+import { routes } from "@/lib/utils/routes";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
 import { useState } from "react";
@@ -70,7 +71,7 @@ function DropdownItem({ children }: { children: React.ReactNode }) {
 function AddProduct() {
   return (
     <DropdownItem>
-      <Link href="/products/new">Add Product</Link>
+      <Link href={routes.productsNew}>Add Product</Link>
     </DropdownItem>
   );
 }
