@@ -1,14 +1,18 @@
 'use server'
 import { cookies } from "next/headers";
-
-
+import { jwtDecode } from 'jwt-decode';
 const authCookieName = "jwt";
 
-interface LoginResponse {
+interface ApiLoginResponse {
   access_token: string;
+  username: string;
+}
+
+interface ClientLoginResponse {
   error?: Error;
 }
-export async function sendLoginReq(username: string, password: string): Promise<LoginResponse> {
+
+export async function sendLoginReq(username: string, password: string): Promise<ClientLoginResponse> {
   const res = await fetch(process.env.NEXT_PUBLIC_SERVER_AUTH_URI!, {
     method: "POST",
     headers: {
@@ -18,29 +22,38 @@ export async function sendLoginReq(username: string, password: string): Promise<
   });
 
   if (!res.ok) {
-    return res.json().then((e) => ({ error: e, access_token: ''}));
+    return res.json().then((e) => ({ error: e }));
   }
+  
+  const resp = await res.json() as ApiLoginResponse;
 
-  return res.json() as Promise<LoginResponse>;
-}
-
-export async function saveAuthToken(token: string) {
   (await cookies()).set({
     name: authCookieName,
-    value: token,
+    value: resp.access_token,
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
     path: "/",
   });
+
+  return { };
 }
 
 export const getAuthToken = async () =>
-  (await cookies()).get(authCookieName)?.value;
+  (await cookies()).get(authCookieName)?.value || '';
 
+export const getUser = async () => {
+  const jwt = await getAuthToken()
+  const decoded = jwtDecode<ApiLoginResponse>(jwt)
+
+  // avoid sending token to client
+  return {
+    username: decoded.username
+  }
+}
 
 export async function handleLogin(
-  _previousState: LoginResponse,
+  _previousState: ClientLoginResponse,
   formData: FormData,
 ) {
   const username = formData.get("username") as string;

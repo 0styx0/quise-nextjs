@@ -21,16 +21,20 @@ export default function LoginPage() {
           <div>
             <label className="block text-sm font-medium mb-1">Username</label>
             <input
+              name="username"
               type="text"
               className="w-full border rounded px-3 py-2"
+              required
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium mb-1">Password</label>
             <input
+              name="password"
               type="password"
               className="w-full border rounded px-3 py-2"
+              required
             />
           </div>
 
