@@ -1,6 +1,9 @@
 import { ProductCard } from "@/components/product/ProductCard/ProductCard";
 import { getProducts } from "../../lib/helpers/getProducts";
 
+// ISR
+export const revalidate = 3600;
+
 export default async function Home() {
   const { data } = await getProducts();
 
