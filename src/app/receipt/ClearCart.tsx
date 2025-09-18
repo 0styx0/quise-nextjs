@@ -8,7 +8,7 @@ export function ClearCart() {
 
   useEffect(() => {
     clearCart();
-  }, []);
+  }, [clearCart]);
 
   return null;
 }

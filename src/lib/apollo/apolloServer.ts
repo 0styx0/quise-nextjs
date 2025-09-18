@@ -1,20 +1,19 @@
 import { getAuthToken } from "@/app/auth/login/auth";
-import { ApolloClient, InMemoryCache, HttpLink, ApolloLink } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import { registerApolloClient } from "@apollo/client-integration-nextjs";
 import { SetContextLink } from "@apollo/client/link/context";
 
 const httpLink = new HttpLink({ uri: process.env.NEXT_PUBLIC_SERVER_URI });
 
-const authLink = new SetContextLink(async ({ headers}) => {
-
+const authLink = new SetContextLink(async ({ headers }) => {
   const token = await getAuthToken();
   return {
     headers: {
       ...headers,
-      Authorization: token ? `Bearer ${token}` : '',
+      Authorization: token ? `Bearer ${token}` : "",
     },
   };
-})
+});
 
 // for debugging
 // const logLink = new ApolloLink((operation, forward) => {
@@ -30,6 +29,6 @@ const authLink = new SetContextLink(async ({ headers}) => {
 export const { getClient, query, PreloadQuery } = registerApolloClient(() => {
   return new ApolloClient({
     cache: new InMemoryCache(),
-    link: authLink.concat(httpLink)
+    link: authLink.concat(httpLink),
   });
 });

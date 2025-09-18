@@ -1,6 +1,6 @@
-'use server'
+"use server";
 import { cookies } from "next/headers";
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 import { redirect } from "next/navigation";
 import { routes } from "@/lib/utils/routes";
 const authCookieName = "jwt";
@@ -14,7 +14,10 @@ interface ClientLoginResponse {
   error?: Error;
 }
 
-export async function sendLoginReq(username: string, password: string): Promise<ClientLoginResponse> {
+export async function sendLoginReq(
+  username: string,
+  password: string,
+): Promise<ClientLoginResponse> {
   const res = await fetch(process.env.NEXT_PUBLIC_SERVER_AUTH_URI!, {
     method: "POST",
     headers: {
@@ -27,7 +30,7 @@ export async function sendLoginReq(username: string, password: string): Promise<
     return res.json().then((e) => ({ error: e }));
   }
 
-  const resp = await res.json() as ApiLoginResponse;
+  const resp = (await res.json()) as ApiLoginResponse;
 
   (await cookies()).set({
     name: authCookieName,
@@ -38,26 +41,26 @@ export async function sendLoginReq(username: string, password: string): Promise<
     path: "/",
   });
 
-  redirect(routes.productsNew)
+  redirect(routes.productsNew);
 }
 
 export const getAuthToken = async () =>
-  (await cookies()).get(authCookieName)?.value || '';
+  (await cookies()).get(authCookieName)?.value || "";
 
 export const getUser = async () => {
-  const jwt = await getAuthToken()
+  const jwt = await getAuthToken();
 
   try {
-    const decoded = jwtDecode<ApiLoginResponse>(jwt)
+    const decoded = jwtDecode<ApiLoginResponse>(jwt);
     return {
-      username: decoded.username
-    }
-  } catch (e) {
+      username: decoded.username,
+    };
+  } catch (_e) {
     return {
-      username: ''
-    }
+      username: "",
+    };
   }
-}
+};
 
 export async function handleLogin(
   _previousState: ClientLoginResponse,
@@ -66,11 +69,11 @@ export async function handleLogin(
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
 
-  return sendLoginReq(username, password)
+  return sendLoginReq(username, password);
 }
 
 export async function logout() {
   // can also send request to server to invalidate token. but keeping it simple
-  (await cookies()).delete(authCookieName)
-  redirect(routes.home)
+  (await cookies()).delete(authCookieName);
+  redirect(routes.home);
 }

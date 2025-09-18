@@ -96,7 +96,7 @@ function useLocalStorage(state: CartState, dispatch: Dispatch<CartAction>) {
         localStorage.removeItem(STORAGE_KEY);
       }
     }
-  }, []);
+  }, [dispatch]);
 
   // Save to localStorage whenever state changes
   useEffect(() => {
