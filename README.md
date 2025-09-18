@@ -13,7 +13,7 @@ It also supports logging in to add new products to the catalog.
 - Immer
 - Stripe (payments)
 
-![Homepage](https://github.com/user-attachments/assets/08e40fcf-325a-4565-a376-9915540a20ab)
+![Screen recording of Quise in action](https://github.com/user-attachments/assets/7bcc7e14-13ea-4d57-8248-22e54cabe17f)
 
 ### Run the project
 
