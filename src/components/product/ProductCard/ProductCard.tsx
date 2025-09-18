@@ -34,7 +34,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       {/* Bottom: price + button */}
       <div className="mt-auto px-6 py-4 flex justify-between items-center">
         <span className="font-semibold text-lg text-gray-900">
-          {priceFormatter.format(product.price)}
+          {priceFormatter.format(product.price / 100)}
         </span>
         <CartActions product={product} />
       </div>

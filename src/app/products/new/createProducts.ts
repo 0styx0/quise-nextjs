@@ -13,8 +13,10 @@ export async function handleCreateProducts(
   const name = formData.get("name") as string;
   const slug = formData.get("slug") as string;
   const description = formData.get("description") as string;
-  const price = parseFloat(formData.get("price") as string);
+  const price = formData.get("price") as string;
   const imageUrl = formData.get("imageUrl") as string;
+
+  const cents = Math.round(parseFloat(price) * 100);
 
   const imageValidation = await validateImageUrl(imageUrl);
   if (imageValidation.error) {
@@ -27,7 +29,9 @@ export async function handleCreateProducts(
   return getClient()
     .mutate<CreateProductsMutation>({
       mutation: CREATE_PRODUCTS,
-      variables: { products: [{ name, slug, description, price, imageUrl }] },
+      variables: {
+        products: [{ name, slug, description, price: cents, imageUrl }],
+      },
     })
     .catch((e) => {
       return {

@@ -29,7 +29,7 @@ export function CartItems() {
               <p className="font-medium text-gray-900">{product.name}</p>
               <p className="text-gray-600 text-sm">{product.description}</p>
               <p className="text-gray-600 text-sm">
-                {priceFormatter.format(product.price)}
+                {priceFormatter.format(product.price / 100)}
               </p>
             </div>
           </div>
