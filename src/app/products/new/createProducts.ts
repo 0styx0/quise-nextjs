@@ -13,7 +13,7 @@ export async function handleCreateProducts(
   const name = formData.get("name") as string;
   const slug = formData.get("slug") as string;
   const description = formData.get("description") as string;
-  const price = parseInt(formData.get("price") as string, 10);
+  const price = parseFloat(formData.get("price") as string);
   const imageUrl = formData.get("imageUrl") as string;
 
   const imageValidation = await validateImageUrl(imageUrl);
@@ -24,10 +24,11 @@ export async function handleCreateProducts(
     };
   }
 
-  return getClient().mutate<CreateProductsMutation>({
-    mutation: CREATE_PRODUCTS,
-    variables: { products: [{ name, slug, description, price, imageUrl }] },
-  })
+  return getClient()
+    .mutate<CreateProductsMutation>({
+      mutation: CREATE_PRODUCTS,
+      variables: { products: [{ name, slug, description, price, imageUrl }] },
+    })
     .catch((e) => {
       return {
         data: { createProducts: [] },
@@ -37,7 +38,6 @@ export async function handleCreateProducts(
 }
 
 async function validateImageUrl(imageUrl: string) {
-
   // HEAD is cheaper than full GET
   const response = await fetch(imageUrl, { method: "HEAD" });
 
@@ -51,5 +51,5 @@ async function validateImageUrl(imageUrl: string) {
     };
   }
 
-  return {}
-} 
+  return {};
+}

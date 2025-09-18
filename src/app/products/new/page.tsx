@@ -145,7 +145,7 @@ function ImageUrlField() {
         name="imageUrl"
         type="url"
         required
-        pattern="^https:\/\/live\.staticflickr\.com\/.+/.+$"
+        pattern="^https:\/\/live\.staticflickr\.com\/.+\/.+$"
         title="Must be a valid Flickr image URL."
         className="peer w-full border p-2 rounded border-gray-300
                    user-invalid:border-red-500 user-valid:border-green-500"
